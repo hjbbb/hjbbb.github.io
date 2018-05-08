@@ -1,0 +1,28 @@
+
+h1 {
+	background-color: #858585;
+	color:white;
+	margin-bottom: 0;
+	padding: 20px;
+}
+
+main>div {
+	display: flex;
+	border:2px solid #e6e6e6;
+	height:100px;
+}
+
+main>div h2 {
+	background-color: #d6d6d6;
+	margin:0;
+	padding:10px;
+}
+
+#base-info .item,#contact-info .item {
+	margin-right:2em;
+}
+
+h4,p{
+	display: inline;
+}
+
