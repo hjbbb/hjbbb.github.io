@@ -1,0 +1,15 @@
+#base-info .item,#contact-info .item {
+	display: inline-block;
+	margin-right:2em;
+}
+
+#base-info h4,#base-info p,#contact-info h4,#contact-info p {
+	display: inline;
+}
+
+#capacity p,#edu-experience p,#proj-experience p{
+	margin:0;
+}
+#capicity h4,#edu-experience h4,#proj-experience h4 {
+	margin-bottom: 0;
+}
