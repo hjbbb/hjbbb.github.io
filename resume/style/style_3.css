@@ -1,0 +1,56 @@
+h1 {
+	padding:10px;
+	color:white;
+	background-color:#858585;
+	margin:0;
+}
+
+div h2 {
+	float:left;
+	width:10%;
+	background-color:#d6d6d6;
+	line-height:7;
+	text-align:center;
+	margin:0;
+	margin-bottom:-9999px;
+	padding-bottom:9999px;
+}
+
+article {
+	float:left;
+	width:80%;
+	margin-left:20px;
+}
+
+#base-info h4,#base-info p,#contact-info h4,#contact-info p{
+	display: inline-block;
+}
+
+/*.item {
+	display: inline-block;
+}*/
+
+#base-info .item,#contact-info .item {
+	margin-right: 2em;
+	display: inline;
+}
+
+#capacity h4,#capacity p,#edu-experience h4,#edu-experience p,#proj-experience h4,#proj-experience p{
+	display: inline-block;
+	margin:0;
+}
+/*div[id] {
+	overflow:auto;
+	zoom:1;
+}*/
+div[id] {
+	overflow: hidden;
+	border:1px solid #eaeaea;
+}
+
+div[id]:after {
+	content:"";
+	display: block;
+	clear:both;
+	line-height: 0;
+}
