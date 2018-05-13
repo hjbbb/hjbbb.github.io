@@ -18,6 +18,8 @@ body>*>* {
 	margin:0 315px;
 }
 
+
+
 .header-wrapper {
 	padding-top:200px;
 }
@@ -89,7 +91,7 @@ body>*>* {
 	margin-bottom:80px;
 }
 
-#feature {
+#sect1 {
 	height: 710px;
 }
 
@@ -99,26 +101,26 @@ body>*>* {
 	margin-bottom:80px;
 }
 
-.feature:nth-child(odd) {
+#sect1 .feature:nth-child(odd) {
 	float:left;
 }
 
-.feature:nth-child(even) {
+#sect1 .feature:nth-child(even) {
 	float:right;
 }
-.feature img {
+#sect1 .feature img {
 	float:left;
 }
 
-.feature .text{
+#sect1 .feature .text{
 	margin-left:80px;
 }
 
-.feature h4 {
+#sect1 .feature h4 {
 	font-size:20px;
 	line-height:32px;
 }
-.feature p {
+#sect1 .feature p {
 	color:#666;
 	font-size:16px;
 	line-height:26px;
@@ -169,11 +171,11 @@ body>*>* {
 	color:white;
 }
 
-#feature2 {
+#sect3 {
 	height:580px;
 	position: relative;
 }
-#feature2 .wrapper{
+#sect3 .wrapper{
 	position:absolute;
 	top:50%;
 	height:400px;
@@ -181,31 +183,255 @@ body>*>* {
 }
 
 
-#feature2 .logo-wrapper {
+#sect3  .logo-wrapper {
 	display:flex;
 	justify-content: space-between;
 }
 
-#feature2 .logo {
+#sect3  .logo {
 	width:27.8350515%;
 	flex-direction: row;
 }
 
-#feature2 img {
+#sect3  img {
 	display:block;
 	margin:0 auto;
 }
 
-#feature2 .logo p{
+#sect3 .logo p{
 	font-size:16px;
 	line-height: 26px;
 	text-align:center;
 }
 
-#feature2 h2 {
+#sect3 h2 {
 	font-size:42px;
 	line-height: 52px;
 	text-align:center;
 	font-weight: normal;
 	margin-bottom:80px;
+}
+
+.photo h4 {
+	font-size:17px;
+	line-height: 32px;
+	margin-bottom:30px;
+}
+
+.photo p {
+	font-size: 15px;
+	line-height:28px;
+	color:#666;
+}
+
+#sect4 {
+	height: 1000px;
+}
+#tree {
+	overflow:hidden;
+	margin-bottom:80px;
+	height:350px;
+}
+
+#tree img {
+	float:left;
+	margin-right:100px;
+}
+
+#tree .text {
+	height: 262px;
+	position:relative;
+	top:44px;
+}
+/*#bird {
+	display:flex;
+}
+
+#bird img {
+	margin-left:105px;
+}
+#bird .text {
+	align-self: center;
+	display: inline-block;
+}*/
+
+
+#bird {
+	position:relative;
+	height:350px;
+}
+
+#bird .text {
+	position: absolute;
+	margin-right:675px;
+	top:50%;
+	margin-top:-131px;
+}
+
+#bird img {
+	position: absolute;
+	right:0;
+	top:0;
+}
+
+
+
+#crew {
+	background-color:rgb(242,242,242);
+	height:1084px;
+	position: relative;
+}
+
+#crew .wrapper{
+	position:absolute;
+	height: 900px;
+	top:50%;
+	margin-top: -450px;
+}
+
+#crew h2 {
+	font-size: 42px;
+	line-height: 52px;
+	text-align: center;
+	margin-bottom: 25px;
+}
+
+#crew p {
+	font-size:18px;
+	line-height: 28px;
+	text-align: center;
+	margin-bottom:60px;
+}
+
+#crew .image-wrapper {
+	background-color:black;
+
+}
+
+#team .image-wrapper {
+	margin-bottom: 30px;
+}
+#team .image-wrapper:nth-child(odd){
+	float:left;
+}
+
+#team .image-wrapper:nth-child(even) {
+	float:right;
+}
+
+#team img {
+	vertical-align: bottom;
+}
+
+#team img:hover {
+	opacity:0.4;
+}
+
+
+
+#contact .wrapper {
+	display:flex;
+	height:700px;
+}
+
+#contact form {
+	width:470px;
+	flex:none;
+	align-self:center;
+	border:1px solid #666;
+	border-radius:10px;
+}
+
+#contact form * {
+	display: block;
+	margin:0 auto 30px auto;
+	width:370px;
+	height:50px;
+}
+
+#contact form h4 {
+	text-align: center;
+}
+
+#contact form textarea {
+	height: 145px;
+}
+
+#contact form input[type="submit"] {
+	background: black;
+	color:white;
+	border:none;
+}
+
+#contact .text {
+	margin-left:130px;
+	font-size:16px;
+	line-height: 26px;
+	align-self: center;
+}
+
+#contact .text h2 {
+	font-size: 42px;
+	line-height: 52px;
+	margin-bottom: 37px;
+}
+
+#contact .text>p {
+	margin-bottom: 70px;
+}
+
+#contact .cont p {
+	margin-bottom:35px;
+}
+
+#contact .text div {
+	overflow: hidden;
+}
+#contact .text img {
+	float:left;
+	margin-right:10px;
+}
+
+
+
+footer {
+	background: black;
+}
+
+footer .wrapper{
+	margin:0 215px;
+	padding-top:100px;
+	height:420px;
+	box-sizing: border-box;
+	display: flex;
+}
+
+footer ul {
+	flex:1 1;
+/*	align-self: center;*/
+	padding:0;
+}
+
+
+footer ul h4 {
+	color:white;
+	font-size: 14px;
+	line-height: 28px;
+}
+
+footer ul li {
+	list-style: none;
+}
+
+footer ul a {
+	text-decoration: none;
+	font-size:16px;
+	line-height: 46px;
+	color:#666;
+}
+
+footer .socials-buttons li{
+	display: inline-block;
+	margin:30px 20px 0 0;
+
 }
