@@ -103,6 +103,27 @@
 				cssLink.href=file_name;
 			})
 		}
+
 	</script>
 </body>
+<script>
+	var btn=document.createElement('button');
+	var btn1=document.createElement('button');
+	var para=document.createElement('p');
+	para.innerText="我的特殊爱好：打篮球，跑步";
+	document.body.appendChild(para);
+	para.style.display="none";
+	var ulist=document.querySelector("ul");
+	btn.innerHTML="你好";
+	btn1.textContent="我的特殊爱好";
+	document.body.insertBefore(btn,ulist);
+	document.body.insertBefore(btn1,ulist);
+	btn.onclick = function() {
+		alert("你好");
+	}
+	btn1.addEventListener("click",function() {
+		para.style.display="block";
+		para.focus();
+	})
+</script>
 </html>
