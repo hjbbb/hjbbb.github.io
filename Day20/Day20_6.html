@@ -1,0 +1,45 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        div {
+            width:480px;
+            height:480px;
+            background:url("images/erik_ce204002.jpg") 0px 0px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+    </div>
+    <script>
+        play();
+        function play() {
+            var container = document.querySelector("div");
+            var direction="forward";
+            animate();
+            function animate() {
+                positionY = window.getComputedStyle(container).backgroundPositionY;
+                if(direction=="forward")
+                    container.style.backgroundPositionY=(parseInt(positionY)-480) + "px";
+                else if(direction=="reverse")
+                    container.style.backgroundPositionY=(parseInt(positionY)+480) + "px";
+                if(positionY=="-7200px"){
+                    direction="reverse";
+                    setTimeout(animate,200);
+                    return;
+                }
+                else if(positionY=="-480px") {
+                    direction="forward";
+                }
+                setTimeout(animate,100);
+            }
+        }
+        
+    </script>
+</body>
+</html>

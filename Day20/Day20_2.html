@@ -1,0 +1,56 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        select {
+            display:none;
+        }
+    </style>
+</head>
+<body>
+    <label>
+        <input id="school" name="status" type="radio">
+        School
+    </label>
+    <label>
+        <input id="company" name="status" type="radio">
+        Company
+    </label>
+
+    <select id="school-select">
+        <option>北京邮电大学</option>
+        <option>黑龙江大学</option>
+        <option>华中科技大学</option>
+    </select>
+    
+    <select id="company-select">
+        <option>百度</option>
+        <option>爱奇艺</option>
+    </select>
+
+    <script>
+        // var r1=document.querySelector('input#school');
+        // var r2=document.querySelector("input#company");
+        var radios = document.querySelectorAll("input[name='status']");
+        addListener(radios);
+        function addListener(eles) {
+            var show;
+            for(let i=0;i<eles.length;i++) {
+                eles[i].addEventListener("change",function(e) {
+                    var sele = document.querySelector("#"+e.target.id+"-select");
+                    if(show) {
+                        show.style.display="none";
+                    }
+                    show=sele;
+                    show.style.display="block";
+                })
+            }
+        }
+
+    </script>
+</body>
+</html>

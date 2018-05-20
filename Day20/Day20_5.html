@@ -1,0 +1,68 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <h1>参考《javascript权威指南》16.3</h1>
+    <div id="fade-obj" style="width:300px;height:300px;background:#000"></div>
+    <button id="fade-btn">淡出</button>
+    <script>
+        (function handle() {
+            var btn = document.querySelector("#fade-btn");
+            var obj = document.querySelector("#fade-obj");
+            var time=1000;
+            obj.style.opacity=window.getComputedStyle(obj).opacity;
+            btn.addEventListener("click",function(e) {
+
+                btn.disabled=true;
+                if(e.target.textContent=="淡出") {
+
+                    fadeIn(obj);
+                }
+                else if(e.target.textContent=="淡入") {
+                    fadeOut(obj);
+                }
+                
+            });
+            function fadeIn(ele) {
+                var start = new Date().getTime();
+                animate();
+                function animate() {
+                    var elapsed = new Date().getTime()-start;
+                    var fraction = elapsed/time;
+                    if(fraction<1) {
+                        ele.style.opacity = 1-Math.sqrt(fraction);
+                        setTimeout(animate,Math.min(25,time-elapsed));
+                    }
+                    else {
+                        ele.style.opacity=0;
+                        btn.disabled=false;
+                        btn.textContent = "淡入";
+                    }
+                };
+            }
+            function fadeOut(ele,oncomplete) {
+                var start = new Date().getTime();
+                animate();
+                function animate() {
+                    var elapsed=new Date().getTime()-start;
+                    var fraction = elapsed/time;
+                    if(fraction<1) {
+                        ele.style.opacity = Math.sqrt(fraction);
+                        setTimeout(animate,Math.min(25,time-elapsed));
+                    }
+                    else {
+                        ele.style.opacity=1;
+                        btn.disabled=false;
+                        btn.textContent = "淡出";
+                    }
+                }
+            }
+        })();
+    </script>
+</body>
+</html>
