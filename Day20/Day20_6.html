@@ -26,21 +26,21 @@
         function play() {
             var container = document.querySelector("div");
             var direction="forward";
+            positionY = parseInt(window.getComputedStyle(container).backgroundPositionY);
             animate();
             function animate() {
-                positionY = window.getComputedStyle(container).backgroundPositionY;
                 if(direction=="forward")
-                    container.style.backgroundPositionY=(parseInt(positionY)-480) + "px";
+                    positionY -=480;
                 else if(direction=="reverse")
-                    container.style.backgroundPositionY=(parseInt(positionY)+480) + "px";
-                if(positionY=="-7200px"){
+                    positionY +=480;
+                if(positionY==-7680){
                     direction="reverse";
-                    setTimeout(animate,200);
-                    return;
                 }
-                else if(positionY=="-480px") {
+                else if(positionY==0) {
                     direction="forward";
                 }
+                console.log(positionY);
+                container.style.backgroundPositionY=positionY + "px";
                 setTimeout(animate,100);
             }
         }
