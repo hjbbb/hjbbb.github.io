@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script type="text/javascript">
+        window.onload=function() {
+        var timer = document.querySelector(".t");
+        setInterval(showTime,1000);
+            function showTime() {
+                var time=new Date();
+                var style=document.querySelector("input[name='style']:checked").value;
+
+                var year = time.getFullYear();
+                var m=align(time.getMonth()+1);
+                var d=align(time.getDate());
+                var day=getDay(time.getDay(),style);
+                var h=align(time.getHours());
+                var min=align(time.getMinutes());
+                var s=align(time.getSeconds());
+                
+
+
+                if(style==="0")
+                    timer.innerText=year+"年"+m+"月"+d+"日星期"+day+h+":"+min+":"+s;
+                else {
+                    var unit=h>=12?'PM':'AM';
+                    var h = h>12?align(h-12):(h===0)?12:h;
+                    
+                    timer.innerText=`${year}-${m}-${d} ${day} ${h}:${min}:${s} ${unit}`;
+                }
+            }
+
+            function getDay(d,s) {
+                var days={
+                    0: ['日','Sunday'],
+                    1: ['一','Monday'],
+                    2: ['二','Tuesday'],
+                    3: ['三','Wednesday'],
+                    4: ['四','Thursday'],
+                    5: ['五','Friday'],
+                    6: ['六','Saturday']
+                }
+                return days[d][s];
+            }  
+            function align(i) {
+                if(i<10) {
+                    i='0'+i;
+                }
+                return i;
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="t"></div>
+    <label>
+        <input type="radio" name="style" value="0" checked>24小时制
+    </label>
+    <label>
+        <input type="radio" name="style" value="1">12小时制
+    </label>
+    <br>
+    <br>
+    <div class="container">
+        <select id="year-select">
+        </select>
+        
+        <select id="month-select">
+            <option value="1" selected>1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+        </select>
+        
+        <select id="day-select">
+        </select>
+        
+        <select id="hour-select">
+        </select>
+        
+        <select id="minute-select">
+        </select>
+        
+        <select id="second-select">
+        </select>
+        
+        <p id="result-wrapper">现在距离 2001年1月1日星期X HH:MM:SS 还有 X 天 X 小时 X 分 X 秒</p>
+    </div>
+
+        <script>
+            var result=document.querySelector("#result-wrapper");
+            var container=document.querySelector(".container");
+            var year_sel=document.querySelector("#year-select");
+            var mon_sel=document.querySelector("#month-select");
+            var day_sel=document.querySelector("#day-select");
+            var hour_sel=document.querySelector("#hour-select");
+            var min_sel=document.querySelector("#minute-select");
+            var sec_sel=document.querySelector("#second-select");
+            {
+            for(let i=2000;i<=2032;i++) {
+                let elt=document.createElement("option")
+                elt.value=i;
+                elt.innerText=i;
+                year_sel.appendChild(elt);
+            }
+            for(let i=1;i<=31;i++) {
+                let elt=document.createElement("option")
+                elt.value=i;
+                elt.innerText=i;
+                day_sel.appendChild(elt);
+            }
+            for(let i=0;i<=23;i++) {
+                let elt=document.createElement("option")
+                if(i==0)
+                    elt.selected=true;
+                elt.value=i;
+                elt.innerText=i;
+                hour_sel.appendChild(elt);
+            }
+            for(let i=0;i<=59;i++) {
+                let elt=document.createElement("option")
+                elt.value=i;
+                elt.innerText=i;
+                min_sel.appendChild(elt);
+            }
+            for(let i=0;i<=59;i++) {
+                let elt=document.createElement("option")
+                elt.value=i;
+                elt.innerText=i;
+                sec_sel.appendChild(elt);
+            }}
+            (function() {
+                var year=getSelected("year-select");
+                var mon=getSelected("month-select");
+                var day=getSelected("day-select");
+                var hour=getSelected("hour-select");
+                var min=getSelected("minute-select");
+                var sec=getSelected("second-select");
+                var selecteds={
+                    year:year,
+                    month:mon,
+                    day:day,
+                    hour:hour,
+                    minute:min,
+                    second:sec
+                }
+                container.addEventListener("change",function(e) {
+                    current=new Date();
+                    var sel=e.target.id.match(/\w+/)[0];
+                    selecteds[sel]=getSelected(e.target.id);
+                    if(e.target.id==="month-select"||e.target.id==="year-select") {
+                        changeDays(selecteds.year,selecteds.month);
+                    }
+                    differ();
+                });
+
+                function differ() {
+                    var curr=new Date();
+                    var timer = new Date(selecteds.year,selecteds.month-1,selecteds.day,
+                            selecteds.hour,selecteds.minute,selecteds.second);
+                    if(curr>timer) {
+                        var diff=curr-timer;
+                    }
+                    else {
+                        var diff=timer-curr;
+                    }
+                    var d=Math.floor(diff/(1000*60*60*24));
+                    diff=diff%(1000*60*60*24);
+                    var h=Math.floor(diff/(1000*60*60));
+                    diff%=1000*60*60;
+                    var m=parseInt(diff/(1000*60));
+                    diff=diff%(1000*60);
+                    var s=Math.floor(diff/1000);
+                    if(curr>timer) {
+                        result.innerText="现在距离 "+selecteds.year+"年"+selecteds.month+"月"+selecteds.day+"日星期"+
+                                getDay(timer.getDay(),'0')+selecteds.hour+":"+selecteds.minute+":"+selecteds.second+
+                                "已经过去"+d+"天"+h+"时"+m+"分"+s+"秒";
+                    }
+                    else {
+                        result.innerText="现在距离 "+selecteds.year+"年"+selecteds.month+"月"+selecteds.day+"日星期"+
+                                getDay(timer.getDay(),'0')+selecteds.hour+":"+selecteds.minute+":"+selecteds.second+
+                                "还有"+d+"天"+h+"时"+m+"分"+s+"秒";
+                    }
+                }
+                
+            })();
+            function getSelected(id) {
+                    var sel=document.querySelector("#"+id);
+                    var index=sel.selectedIndex;
+                    return sel.options[index].value;
+            }
+            function isLeapYear(year) {
+                if(year%4===0) {
+                    if(year%100!==0)
+                        return true;
+                    else if(year%400===0) {
+                        if(year%3200!==0)
+                            return true;
+                        else return false;
+                    }
+                    else 
+                        return false;
+                }
+                else 
+                    return false;
+            }
+
+            function getDay(d,s) {
+                var days={
+                    0: ['日','Sunday'],
+                    1: ['一','Monday'],
+                    2: ['二','Tuesday'],
+                    3: ['三','Wednesday'],
+                    4: ['四','Thursday'],
+                    5: ['五','Friday'],
+                    6: ['六','Saturday']
+                }
+                return days[d][s];
+            }  
+
+             var changeDays=(function(){
+                    var days=document.querySelectorAll("#day-select option")
+                    return function(year,month) {
+                        if(month%2==0)
+                        {
+                            if(month=="2") {
+                                if(isLeapYear(year)) {
+                                    days[28].style.display="block";
+                                    for(var i=29;i<31;i++)
+                                        days[i].style.display="none";
+                                }
+                                else{
+                                    for(var i=28;i<31;i++)
+                                        days[i].style.display="none";
+                                }
+                            }
+                            else {
+                                for(var i=28;i<30;i++)
+                                    days[i].style.display="block";
+                                days[i].style.display="none";
+                            }
+                        }
+                        else {
+                            for(var i=28;i<31;i++) {
+                                days[i].style.display="block";
+                            }
+                        }
+                    }
+            })();
+
+        </script>
+</body>
+</html>
