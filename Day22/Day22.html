@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <div>
+        <label>Number A:<input id="radio-a" type="radio" name="math-obj" value="a"</label><input id="num-a" type="text">
+        <label>Number B:<input id="radio-b" type="radio" name="math-obj" value="b"</label><input id="num-b" type="text">
+    </div>
+    <div>
+        <button id="judge">判断当前选中的输入框输入内容是否为数字</button>
+        <button id="round-decimal">把A四舍五入为B个小数位数的数字</button>
+        <button id="abs">当前选中数据的绝对值</button>
+        <button id="ceil">对当前选中的数字进行上舍入</button>
+        <button id="floor">对当前选中的数字进行下舍入</button>
+        <button id="round">把当前选中的数字四舍五入为最接近的整数</button>
+        <button id="max">返回 A 和 B 中的最高值</button>
+        <button id="min">返回 A 和 B 中的最低值</button>
+    </div>
+    <p id="result"></p>
+
+    <script>
+        var radios = document.querySelectorAll("input[name='math-obj']");
+        var result = document.querySelector("#result");
+        function getSelected() {
+            for(var i=0;i<radios.length;i++) {
+                if(radios[i].checked===true) {
+                    var id=radios[i].value;
+                    var val=document.querySelector(`#num-${id}`).value
+                    if(val==="") 
+                        throw new Error("Please input num"+id)
+                    return Number(val);
+                }
+            }
+            throw new Error("No radio checked");
+        }
+        function isNumber(n) {
+            return !isNaN(n);
+        }
+        var judge=document.querySelector("#judge");
+        judge.addEventListener("click",function(e) {
+            result.innerText=isNumber(getSelected());
+        });
+        var abs=document.querySelector("#abs");
+        abs.addEventListener("click",function(e) {
+            var num=getSelected();
+            if(!isNumber(num))
+                throw new Error("is no a number");
+            result.innerText=`abs(${num}): ${Math.abs(num)}`;
+        })
+        var ceil=document.querySelector("#ceil");
+        ceil.addEventListener("click",function(e) {
+            var num=getSelected();
+            if(!isNumber(num))
+                throw new Error("is no a number");
+            result.innerText=`ceil(${num}): ${Math.ceil(num)}`;
+        })        
+        var floor=document.querySelector("#floor");
+        floor.addEventListener("click",function(e) {
+            var num=getSelected();
+            if(!isNumber(num)) 
+                throw new Error("is no a number");
+            result.innerText=`floor(${num}): ${Math.floor(num)}`;
+        });
+        var round=document.querySelector("#round");
+        round.addEventListener("click",function(e) {
+            var num=getSelected();
+            if(!isNumber(num))
+                throw new Error("is no a number");
+            result.innerText=`round(${num}): ${Math.round(num)}`;
+        });
+
+        (function aAndB() {
+            var a = document.querySelector("#num-a");
+            var b = document.querySelector("#num-b");
+            var round_decimal = document.querySelector("#round-decimal");
+            var max=document.querySelector("#max");
+            var min=document.querySelector("#min");
+            function checkNums() {
+                if(a.value==="")
+                    throw new Error("num-a haven't been inputted")
+                if(b.value==="")
+                    throw new Error("num-b haven't been inputted");
+                if(!isNumber(a.value))
+                    throw new Error("a is not a number");
+                if(!isNumber(b.value))
+                    throw new Error("b is not a number");
+            }          
+            round_decimal.addEventListener("click",function(e) {
+                checkNums();
+                var index=a.value.indexOf(".");
+                if(index===-1) {
+                    var num_a=Number(a.value);
+                    num_a+=".";
+                    for(let i=0;i<parseInt(b.value);i++)
+                        num_a+="0";
+                    
+                }
+                else {
+                    var arr = a.value.split(".");
+                    var int = arr[0];
+                    var dec = arr[1];
+                    console.log(int);
+                    console.log(dec);
+                    var b_value=parseInt(b.value);
+                    if(dec.length<b_value){
+                        dec=dec*Math.pow(10,b_value-dec.length);
+                        num_a = int+"."+dec;
+                    }
+                    else {
+                        let carry = dec[b_value-1]<5?0:1;
+                        dec=dec.substring(0,b_value-1);
+                        var dec_1=''+(Number(dec)+carry);
+                        if(dec_1.length>dec.length)
+                        {
+                            int=Number(int)+1;
+                            dec_1=dec_1.substring(1);
+                        }
+                        num_a = int+"."+dec_1+"0";
+                    }
+                    
+                }
+                result.innerText=num_a;
+            });
+            max.addEventListener("click",function(e) {
+                checkNums();
+                var num_a=Number(a.value);
+                var num_b=Number(b.value);
+                result.innerText=`max(${num_a},${num_b}) = ${Math.max(num_a,num_b)}`;
+            });
+            min.addEventListener("click",function(e) {
+                checkNums();
+                var num_a=Number(a.value);
+                var num_b=Number(b.value);
+                result.innerText=`min(${num_a},${num_b}) = ${Math.min(num_a,num_b)}`;
+            })
+        })();
+    </script>
+</body>
+</html>

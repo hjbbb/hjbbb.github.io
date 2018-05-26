@@ -1,0 +1,79 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <input id="queue-input" type="text">
+    <p id="queue-cont">队列内容：apple-&gt;pear</p>
+    <button id="in-btn">入队</button>
+    <button id="out-btn">出队</button>
+    <button id="font-btn">打印队头元素内容</button>
+    <button id="empty-btn">判断队列是否为空</button>
+    <br>
+    <br>
+    <br>
+    <br>
+    <input id="stack-input" type="text">
+    <p id="stack-cont">栈内容：apple-&gt;pear</p>    
+    <button id="push-btn">进栈</button>
+    <button id="pop-btn">退栈</button>
+    <button id="stack-font-btn">打印栈顶元素内容</button>
+    <button id="stack-empty-btn">判断栈是否为空</button>
+    <script>
+        var queue = ["apple","pear"];
+        var stack = ["apple","pear"];
+        var input =document.querySelector("#queue-input");
+        var input1 = document.querySelector("#stack-input");
+
+        var in_btn=document.querySelector("#in-btn");
+        in_btn.addEventListener("click",function(e) {
+            queue.unshift(input.value);
+            queueshow();
+        });
+        var out_btn=document.querySelector("#out-btn");
+        out_btn.addEventListener("click",function(e) {
+            queue.pop();
+            queueshow();
+        });
+        var font_btn=document.querySelector("#font-btn");
+        font_btn.addEventListener("click",function(e) {
+            console.log(queue[queue.length-1]);
+        });
+        var empty_btn=document.querySelector("#empty-btn");
+        empty_btn.addEventListener("click",function(e) {
+            console.log(queue.length===0);
+        })
+        function queueshow() {
+            var cont = document.querySelector("#queue-cont");
+            cont.innerText="队列内容：" + queue.join("->");
+        }
+
+        var push_btn = document.querySelector("#push-btn");
+        push_btn.addEventListener("click",function(e) {
+            stack.push(input1.value);
+            stackshow();
+        });
+        var pop_btn = document.querySelector("#pop-btn");
+        pop_btn.addEventListener("click",function(e) {
+            stack.pop();
+            stackshow();
+        });
+        var font_btn1 = document.querySelector("#stack-font-btn");
+        font_btn1.addEventListener("click",function(e) {
+            console.log(stack[stack.length-1]);
+        });
+        var empty_btn1 = document.querySelector("#stack-empty-btn");
+        empty_btn1.addEventListener("click",function(e) {
+            console.log(stack.length===0);
+        });
+        function stackshow() {
+            var cont = document.querySelector("#stack-cont");
+            cont.textContent = "栈内容：" + stack.join("->");
+        }
+    </script>
+</body>
+</html>

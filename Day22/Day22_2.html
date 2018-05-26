@@ -1,0 +1,135 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <div>
+        <label>String A: 
+            <input id="radio-a" type="radio" checked="true" name="str-obj" value="a">
+        </label>
+        <textarea id="str-a"></textarea>
+        <label>String B：
+            <input id="radio-b" type="radio" name="str-obj" value="b">
+        </label>
+        <textarea id="str-b"></textarea>
+        <label>Num A: <input id="num-a" type="number" value="0"></label>
+        <label>Num B: <input id="num-b" type="number" value="1"></label>
+    </div>
+    <div>
+        <button id="getlen">获取当前选中输入的内容长度</button>
+        <button id="getthird">当前选中输入中的第3个字符</button>
+        <button id="concat">把两个输入框的文字连接在一起输出（concat）</button>
+        <button id="indexof">输入B中的内容，在输入A的内容中第一次出现的位置（indexOf）</button>
+        <button id="lastindexof">输入A中的内容，在输入B的内容中最后一次出现的位置（lastIndexOf）</button>
+        <button id="slice">使用slice获取选中输入框内容的部分内容，参数为num-a及num-b</button>
+        <button id="line-num">当前选中输入框的行数</button>
+        <button id="substr">使用substr获取选中输入框内容的子字符串，参数为num-a及num-b</button>
+        <button id="touppercase">把所选输入框中的内容全部转为大写</button>
+        <button id="tolowercase">把所选输入框中的内容全部转为小写</button>
+        <button id="trim">把所选输入框中内容的半角空格全部去除</button>
+        <button id="replace-a">把所选输入框中内容的a全部替换成另外一个输入框中的内容</button>
+    </div>
+    <p id="result"></p>
+    <script>
+        var getlen=document.querySelector("#getlen");
+        var result=document.querySelector("#result");
+        function getSelect() {
+            var radios = document.querySelectorAll("input[name='str-obj'");
+            for(var i=0;i<radios.length;i++) {
+                if(radios[i].checked===true) {
+                    return document.querySelector(`#str-${radios[i].value}`);
+                }
+            }
+        };
+        getlen.addEventListener("click",function(e) {
+            var str=getSelect();
+            result.textContent=str.id+"'s length: "+str.value.length;
+        });
+        var getthird=document.querySelector("#getthird");
+        getthird.addEventListener("click",function(e) {
+            var str=getSelect();
+            result.innerText=`the third letter of ${str.id} is ${str.value.charAt(2)}`;
+        });
+        
+        var slice=document.querySelector("#slice");
+        slice.addEventListener("click",function(e) {
+            var num_a = Number(document.querySelector("#num-a").value);
+            var num_b = Number(document.querySelector("#num-b").value);
+            var str=getSelect();
+            result.textContent=`${str.id}.slice(${num_a},${num_b}): ${str.value.slice(num_a,num_b)}`;
+        });
+        var line_num=document.querySelector("#line-num");
+        line_num.addEventListener("click",function(e) {
+            var str=getSelect();
+            var value=str.value;
+            var num=1;
+            for(var i=0,len=value.length;i<len;i++) {
+                if(value[i]==="\n")
+                    num++;
+            }
+            result.innerText=`${str.id}'s line-num: ${num}`;
+        });
+
+        var substr=document.querySelector("#substr");
+        substr.addEventListener("click",function(e) {
+            var num_a = Number(document.querySelector("#num-a").value);
+            var num_b = Number(document.querySelector("#num-b").value);
+            var str=getSelect();
+            result.textContent=`${str.id}.substr(${num_a},${num_b}): ${str.value.substr(num_a,num_b)}`;           
+        });
+
+        var touppercase=document.querySelector("#touppercase");
+        touppercase.addEventListener("click",function(e) {
+            var str=getSelect();
+            result.textContent=str.value+" , toUpperCase: "+str.value.toUpperCase();
+        });
+
+        var tolowercase=document.querySelector("#tolowercase");
+        tolowercase.addEventListener("click",function(e) {
+            var str=getSelect();
+            result.textContent=str.value+" , toLowerCase: " +str.value.toLowerCase();
+        });
+
+        var trim=document.querySelector("#trim");
+        trim.addEventListener("click",function(e) {
+            var str=getSelect();
+            var value=str.value.replace(/ /g,'');
+            result.textContent=str.value+", after trimming: "+value;
+        });
+        
+
+
+        (function aAndB(){
+            var a=document.querySelector("#str-a");
+            var b=document.querySelector("#str-b");
+            
+            var concat=document.querySelector("#concat");
+            concat.addEventListener("click",function(e) {
+                result.innerText=a.value.concat(b.value);
+            });
+
+            var indexof=document.querySelector("#indexof");
+            indexof.addEventListener("click",function(e) {
+                result.textContent=`str-b: ${b.value}, indexOf(str-a: ${a.value}) in B: ${b.value.indexOf(a.value)}`;
+            });
+
+            var lastindexof=document.querySelector("#lastindexof");
+            lastindexof.addEventListener("click",function(e) {
+                result.textContent=`str-a: ${a.value}, lastindexof(str-b: ${b.value}) in A: ${a.value.lastIndexOf(b.value)}`;
+            });
+
+            var replace_a = document.querySelector("#replace-a");
+            replace_a.addEventListener("click",function(e) {
+                if(getSelect().id==="str-a")
+                    result.textContent='str-a: '+a.value+", after replacing: "+a.value.replace(/a/g,b.value);
+                else 
+                    result.textContent="str-b: "+b.value+", after replacing: "+b.value.replace(/a/g,a.value);
+            });
+        })();
+    </script>
+</body>
+</html>

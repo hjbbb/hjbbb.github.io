@@ -110,6 +110,7 @@
 	var btn=document.createElement('button');
 	var btn1=document.createElement('button');
 	var para=document.createElement('p');
+	var greet=document.createElement('p');
 	para.innerText="我的特殊爱好：打篮球，跑步";
 	document.body.appendChild(para);
 	para.style.display="none";
@@ -125,5 +126,33 @@
 		para.style.display="block";
 		para.focus();
 	})
+	switch(new Date().getHours()) {
+		case 1:
+		case 2:
+		case 3:
+		case 4:greet.innerText="深夜好";break;
+		case 5:
+		case 6:greet.innerText="拂晓好";break;
+		case 7:
+		case 8:
+		case 9:
+		case 10:greet.innerText="早上好";break;
+		case 11:
+		case 12:greet.innerText="中午好";break;
+		case 13:
+		case 14:
+		case 15:
+		case 16:greet.innerText="下午好";break;
+		case 17:
+		case 18:greet.innerText="傍晚好";break;
+		case 19:
+		case 20:
+		case 21:
+		case 22:greet.innerText="晚上好";break;
+		case 23:
+		case 0:greet.innerText="午夜好";break;
+
+	}
+	document.body.insertBefore(greet,ulist);
 </script>
 </html>

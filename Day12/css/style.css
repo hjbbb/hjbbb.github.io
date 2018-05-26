@@ -360,6 +360,8 @@ form input {
 	box-sizing: border-box;
 	overflow:hidden;
 	resize:none;
+	font-size:14px;
+	line-height: 19px;
 }
 
 .cut-off-line {

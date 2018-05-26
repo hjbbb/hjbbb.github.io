@@ -1,0 +1,160 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <script>
+        var tree = {
+            "id": 0,
+            "name": "root",
+            "left": {
+                "id": 1,
+                "name": "Simon",
+                "left": {
+                    "id": 3,
+                    "name": "Carl",
+                    "left": {
+                        "id": 7,
+                        "name": "Lee",
+                        "left": {
+                            "id": 11,
+                            "name": "Fate",
+                        }
+                    },
+                    "right": {
+                        "id": 8,
+                        "name": "Annie",
+                        "left": {
+                            "id": 12,
+                            "name": "Saber",
+                        }
+                    }
+                },
+                "right": {
+                    "id": 4,
+                    "name": "Tony",
+                    "left": {
+                        "id":9,
+                        "name": "Candy"
+                    }
+                }
+            },
+            "right": {
+                "id": 2,
+                "name": "right",
+                "left": {
+                    "id":5,
+                    "name": "Carl",
+                },
+                "right": {
+                    "id": 6,
+                    "name": "Carl",
+                    "right": {
+                        "id": 10,
+                        "name": "Kai"
+                    }
+                }
+            }
+        }
+
+        function findIdByName(name) {
+            var node=tree;
+            var stack = [];
+            while(node||stack.length!==0) {
+                if(node){
+                    stack.push(node);
+                    console.log(node.id);
+                    if(node.name===name) {
+                        return node.id;
+                    }
+                    node=node.left;
+                }
+                else
+                    node=stack.pop().right;
+            }
+        }
+        function findNameById(id) {
+            var node=tree;
+            var stack=[];
+            while(node||stack.length!==0) {
+                if(node) {
+                    stack.push(node);
+                    node=node.left;
+                }
+                else {
+                    node=stack.pop();
+                    console.log(node.id);
+                    if(node.id===id)
+                        return node.name;
+                    node=node.right;
+                }
+            }
+        }
+        function getListWithDLR() {
+            var node=tree;
+            var stack=[];
+            while(node||stack.length!==0) {
+                if(node) {
+                    console.log(node.name);
+                    stack.push(node);
+                    node=node.left;
+                }
+                else {
+                    node=stack.pop().right;
+                }
+            }
+        }
+
+        function getListWithLDR() {
+            var node=tree;
+            var stack=[];
+            while(node||stack.length!==0) {
+                if(node) {
+                    stack.push(node);
+                    node=node.left;
+                }
+                else {
+                    node=stack.pop();
+                    console.log(node.name);
+                    node=node.right;
+                }
+            }
+        }
+
+        function getListWithLRD() {
+            var node=tree;
+            var stack=[];
+            var tag=0;
+            while(node||stack.length!==0) {
+                if(node&&tag!=2) {
+                    stack.push(node);
+                    node=node.left;
+                    tag=0;
+                }
+                else if(tag===0) {
+                    node=stack[stack.length-1].right;
+                    tag=1;
+                }
+                else {
+                    if(tag===2)
+                        tag=0;
+                    node=stack.pop();
+                    console.log(node.name);  
+                    if(stack.length&&node===stack[stack.length-1].right){
+                        tag=2;
+                    }
+                    node=stack.length?stack[stack.length-1].right:null;
+                }
+
+            }
+
+        }
+
+
+    </script>
+</body>
+</html>

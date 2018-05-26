@@ -1,0 +1,51 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+        function diyTrim(str) {
+            var result = "";
+            var i=0,
+                len=str.length,
+                j=len-1;
+            while(i<len&&str[i]===" "||str[i]==="　")
+                i++;
+            while(j>i&&str[j]===" "||str[j]==="　")
+                j--;
+            result=str.slice(i,j+1);
+            return result;
+        }
+        console.log(diyTrim(' a f b    ')); // ->a f b
+        console.log(diyTrim('    ffdaf    ')); // ->ffdaf
+        console.log(diyTrim('1    ')); // ->1
+        console.log(diyTrim('　　f')); // ->f
+        console.log(diyTrim('  　  a f b 　　 ')); // ->a f b
+        console.log(diyTrim(' ')); // ->
+        console.log(diyTrim('　')); // ->
+        console.log(diyTrim('')); // ->
+        
+
+        function removeRepetition(str) {
+            var result="",tag=null;
+            for(var i=0;i<str.length;i++) {
+                if(str[i]!==tag) {
+                    result+=str[i];
+                    tag=str[i];
+                }
+            }
+            return result;
+        }
+        console.log(removeRepetition("aaa")); // ->a
+        console.log(removeRepetition("abbba")); // ->aba
+        console.log(removeRepetition("aabbaabb")); // ->abab
+        console.log(removeRepetition("")); // ->
+        console.log(removeRepetition("abc")); // ->abc
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
