@@ -107,20 +107,20 @@
                     console.log(int);
                     console.log(dec);
                     var b_value=parseInt(b.value);
-                    if(dec.length<b_value){
+                    if(dec.length<=b_value){
                         dec=dec*Math.pow(10,b_value-dec.length);
                         num_a = int+"."+dec;
                     }
                     else {
-                        let carry = dec[b_value-1]<5?0:1;
-                        dec=dec.substring(0,b_value-1);
+                        let carry = dec[b_value]<5?0:1;
+                        dec=dec.substring(0,b_value);
                         var dec_1=''+(Number(dec)+carry);
                         if(dec_1.length>dec.length)
                         {
                             int=Number(int)+1;
                             dec_1=dec_1.substring(1);
                         }
-                        num_a = int+"."+dec_1+"0";
+                        num_a = int+"."+dec_1;
                     }
                     
                 }
