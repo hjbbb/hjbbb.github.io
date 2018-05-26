@@ -156,6 +156,7 @@
                     minute:min,
                     second:sec
                 }
+                setInterval(differ,1000);
                 container.addEventListener("change",function(e) {
                     current=new Date();
                     var sel=e.target.id.match(/\w+/)[0];
