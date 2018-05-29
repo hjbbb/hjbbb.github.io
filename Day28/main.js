@@ -26,31 +26,33 @@ window.onload=function() {
 
     emailInput.focus();
 
-    EventUtil.addHandler( emailInput, 'keyup', function(e) {
+    EventUtil.addHandler( emailInput, 'input', function(e) {
+        var input = getInput();
+        sug_wrapper.innerHTML="";
+        if( input !== "" ) {
+            var sugs = formSug(input);
+            addSugs(sugs);
+        }
+        setState(input);
+
+    });
+
+    EventUtil.addHandler( emailInput, 'keydown',function(e) {
         e = EventUtil.getEvent(e);
-        console.log(e.keyCode);
         if(e.keyCode===38) {
-            keyUp();
+            upKey();
         }
         else if(e.keyCode===40) {
-            keyDown();
+            downKey();
         }
         else if(e.keyCode===13) {
-            keyEnter();
+            enterKey();
         }
         else if(e.keyCode===27) {
             emailInput.select();
         }
-        else {
-            var input = getInput();
-            sug_wrapper.innerHTML="";
-            if( input !== "" ) {
-                var sugs = formSug(input);
-                addSugs(sugs);
-            }
-            setState(input);
-        }
     });
+
     function getInput() {
         var value = emailInput.value;
         value = trim(value);
@@ -111,7 +113,7 @@ window.onload=function() {
         }
     }
 
-    function keyUp() {
+    function upKey() {
         var lis = document.querySelectorAll('li');
         var firstLi = document.querySelector('li');
         var sel = document.querySelector('li.on');
@@ -126,7 +128,7 @@ window.onload=function() {
         }
     }
 
-    function keyDown() {
+    function downKey() {
         var lis = document.querySelectorAll('li');
         var lastLi = document.querySelector('li:last-child');
         var sel = document.querySelector('li.on');
@@ -141,7 +143,7 @@ window.onload=function() {
         }
     }
 
-    function keyEnter() {
+    function enterKey() {
         var sel = document.querySelector('li.on');
         emailInput.value=sel.textContent;
         hide();
