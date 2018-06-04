@@ -32,24 +32,36 @@ let EventUtil = {
 
 
 window.onload = function(){
-    let regions = document.querySelector('#region-select')
-    let regionSelectedValue = '华东';
-    regionData(regionSelectedValue);
+    let regions = document.querySelector('#region-select');
+    let products = document.querySelector("#product-select");
+    let selectedValue = {
+        'region':'华东',
+        'product':'手机',
+    };
+    setData();
 
     EventUtil.addHandler(regions,'change',function(e) {
         e = EventUtil.getEvent(e);
         let target = EventUtil.getTarget(e);
-        let regionSelectedValue = target.value;
-        regionData(regionSelectedValue);
+        selectedValue.region = target.value;
+        setData();
     });
+
+    EventUtil.addHandler(products,'change',function(e) {
+        e = EventUtil.getEvent(e);
+        let target = EventUtil.getTarget(e);
+        selectedValue.product = target.value;
+        setData();
+    })
     
-    function regionData(value) {
-        let data = getData(value);
+    function setData() {
+        let data = getData();
         renderTable(data);    
     }
 
-    function getData(val) {
-        return sourceData.filter(function(e) { return e.region===val; });
+    function getData() {
+        return sourceData.filter(function(e) { return e.region===selectedValue.region &&
+                                                        e.product===selectedValue.product; });
     }
 
     function renderTable(data) {
