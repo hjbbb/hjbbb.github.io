@@ -22,10 +22,15 @@ function formCheckBox(container,list) {
 
             let type=target.getAttribute("checkbox-type");
             if(type==="all") {
-                var chks = container.querySelectorAll("input[checkbox-type='single'");
-                for(let i in chks) {
-                    if(chks[i].checked===false) {
-                        chks[i].click();
+                if(target.checked===false) {
+                    e.preventDefault();
+                }
+                else {
+                    var chks = container.querySelectorAll("input[checkbox-type='single'");
+                    for(let i in chks) {
+                        if(chks[i].checked===false) {
+                            chks[i].click();
+                        }
                     }
                 }
             }
