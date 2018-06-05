@@ -195,12 +195,13 @@ window.onload = function(){
         }
 
         function renderTable2(wrapper,data) {
-
-            wrapper.innerHTML='';
-            let table = document.createElement('table');
-            wrapper.appendChild(table);
-            setTableHead2(wrapper);
-            setTableBody2(wrapper,data);
+            if(data.length!==0) {
+                wrapper.innerHTML='';
+                let table = document.createElement('table');
+                wrapper.appendChild(table);
+                setTableHead2(wrapper);
+                setTableBody2(wrapper,data);
+            }
         }
         function setTableHead2(wrapper) {
             let table = wrapper.querySelector("table");
