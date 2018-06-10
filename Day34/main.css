@@ -1,0 +1,15 @@
+table {
+    border:2px solid black;
+    border-collapse:collapse;
+}
+td,th {
+    border:1px solid black;
+    text-align:center;
+}
+thead th {
+    padding:10px;
+}
+
+tbody:hover td[rowspan],tr:hover td{
+    background: rgba(0,0,0,0.2);
+}

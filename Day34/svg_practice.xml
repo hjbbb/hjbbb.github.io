@@ -1,0 +1,16 @@
+<?xml version="1.0" standalone="no"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="300" height="700">
+    <line x1="50" x2="250" y1="10" y2="20" stroke="black" stroke-width="4" />
+    <rect x="50" y="30" width="200" height="20" fill="red" stroke="blue" stroke-width="2" />
+    <circle cx="125" cy="130" r="70" fill="green" />
+    <path d="M 50 270 C 80 205 100 205 130 270 C 195 305 195 325 130 355 C 100 420 80 420 50 355 C -15 325 -15 305 50 270" fill="red"/>
+    <circle cx="90" cy="312.5" r="30" fill="yellow"/>
+    <rect x="100" y="550" width="50" height="150" rx="5" ry="70"  fill="rgb(150,75,0)"/>
+    <path d="M 95 600 A 200 50 0 0 1 70 550
+             A 1000 100 0 0 1 60 500
+             A 100 1000 -10 0 1 110 480
+             A 80 1000 20 0 1 160 470
+             A 800 100 -30 0 1 175 520
+             A 1000 80 0 0 1 170 550 
+             A 1000 100 0 0 1 155 590" fill="green" />
+</svg>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Canvas小练习</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv="viewport" content="width=device-width, initial-scale=1">
+        <script type="text/javascript">
+            function draw() {
+                var canvas = document.getElementById('canvas');
+                if(canvas.getContext) {
+                    var ctx = canvas.getContext('2d');
+                    ctx.beginPath();
+                    ctx.moveTo(50,10);
+                    ctx.lineTo(250,20);
+                    ctx.strokeStyle="red";
+                    ctx.stroke();
+                    
+                    ctx.fillStyle="green";
+                    ctx.fillRect(50,50,200,50);
+
+                    ctx.beginPath();
+                    ctx.arc(150,200,80,0,Math.PI*2,false);
+                    ctx.strokeStyle="blue";
+                    ctx.stroke();
+
+                    ctx.font="20px serif";
+                    ctx.textAlign="center";
+                    ctx.fillText('Hello World',150,200);
+                    
+                    window.requestAnimationFrame(drawClock);
+
+                    function drawClock() {
+                        ctx.save();
+                        ctx.clearRect(50,280,250,150);
+                        ctx.translate(150,350);
+                        ctx.scale(0.9,0.9);
+                        ctx.strokeStyle="black";
+                        
+                        ctx.lineWidth=4;
+                        for(let i=0;i<12;i++) {
+                            ctx.beginPath();
+                            ctx.rotate(Math.PI/6);
+
+                            ctx.moveTo(60,0);
+                            ctx.lineTo(68,0);
+                            ctx.stroke();
+                        }
+                        
+                        ctx.lineWidth=2;
+                        for(let i=0;i<60;i++) {
+                            if(i%5!=0) {
+                                ctx.beginPath();
+                                ctx.moveTo(63,0);
+                                ctx.lineTo(68,0);
+                                ctx.stroke();
+                            }
+                            ctx.rotate(Math.PI/30);
+                        }
+                        showTime();
+                        window.requestAnimationFrame(drawClock);
+                        function showTime() {
+                            let time = new Date();
+                            let h=time.getHours();
+                            let m=time.getMinutes();
+                            let s=time.getSeconds();
+                            h=h>=12?h-12:h;
+                            
+                            ctx.rotate(-Math.PI/2);
+                            
+                            ctx.save();
+                            ctx.rotate(Math.PI/6*h+Math.PI/360*m);
+                            ctx.lineWidth=6;
+                            ctx.lineCap="round";
+                            ctx.beginPath();
+                            ctx.moveTo(-5,0);
+                            ctx.lineTo(45,0);
+                            ctx.stroke();
+                            ctx.restore();
+
+                            ctx.save();
+                            ctx.rotate(Math.PI/30*m+Math.PI/1800*s);
+                            ctx.lineWidth=4;
+                            ctx.beginPath();
+                            ctx.moveTo(-8,0);
+                            ctx.lineTo(68,0);
+                            ctx.stroke();
+                            ctx.restore();
+                            
+                            ctx.save();
+                            ctx.rotate(Math.PI/30*s);
+                            ctx.strokeStyle="red";
+                            ctx.beginPath();
+                            ctx.moveTo(-8,0);
+                            ctx.lineTo(55,0);
+                            ctx.stroke();
+                            ctx.fillStyle="red";
+                            ctx.arc(0,0,3,0,Math.PI*2,false);
+                            ctx.fill();
+                            ctx.lineWidth=2;
+                            ctx.beginPath();
+                            ctx.arc(60,0,4,0,Math.PI*2,false);
+                            ctx.stroke();
+                            ctx.restore();
+                        }
+                        
+                        ctx.save();
+                        ctx.strokeStyle="#325FA2";
+                        ctx.lineWidth=5;
+                        ctx.beginPath();
+                        ctx.arc(0,0,72,0,Math.PI*2,false);
+                        ctx.stroke();
+                        ctx.restore();
+
+                        ctx.restore();
+                    }
+                    ctx.beginPath();
+                    ctx.moveTo(60,540);
+                    ctx.bezierCurveTo(20,460,200,470,160,550);
+                    ctx.bezierCurveTo(240,500,230,640,140,600);
+                    ctx.bezierCurveTo(130,640,70,630,60,590);
+                    ctx.bezierCurveTo(10,600,0,520,60,540);
+                    ctx.stroke();
+                    var lingrad = ctx.createLinearGradient(0,0,300,0);
+                    lingrad.addColorStop(0,"rgba(0,0,0,0.6)");
+                    lingrad.addColorStop(0.3,"rgba(0,0,0,0.3)");
+                    lingrad.addColorStop(1,"rgba(0,0,0,0.1)");
+                    ctx.fillStyle=lingrad;
+                    ctx.fill();
+                }
+            }
+        </script>
+    </head>
+    <body onload="draw();">
+        <canvas id="canvas" width="300" height="700">
+
+        </canvas>
+    </body>
+</html>
