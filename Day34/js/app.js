@@ -25,6 +25,18 @@ let checkedValue = {
 }
 
 window.onload = function(){
+
+    let colorBar = document.getElementById('color-bar');
+    for(let i=0,len=sourceData.length;i<len;i++) {
+        let outer = document.createElement('label');
+        outer.textContent=sourceData[i].region+"-"+sourceData[i].product;
+        let inner = document.createElement('div');
+        inner.style.background=colors[i];
+        inner.className="inner";
+        outer.appendChild(inner);
+        colorBar.appendChild(outer);
+    }
+
     productRadio.querySelector("input[checkbox-type='single']").click();
     regionRadio.querySelector("input[checkbox-type='single']").click();
     drawBar(sourceData[0].sale);

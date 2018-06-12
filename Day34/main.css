@@ -13,3 +13,13 @@ thead th {
 tbody:hover td[rowspan],tr:hover td{
     background: rgba(0,0,0,0.2);
 }
+
+#color-bar div {
+    display: inline-block;
+}
+#color-bar .inner {
+    width:20px;
+    height:15px;
+    border-radius: 3px;
+    margin-right:10px;
+}
