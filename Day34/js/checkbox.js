@@ -153,6 +153,7 @@ function formCheckBox(container,list) {
 
         let data1 = data.map(function(e) {return e.sale;});
         drawLine(data.map(function(e){return e.sale;}),true);
+        drawBar(data.map(function(e){return e.sale;}),true);
     }
 
 

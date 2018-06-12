@@ -9,27 +9,49 @@ function drawLine(data,multi) {
 
     let max=Number.MIN_VALUE;
     getMax();
-    let axisHeight=getYHeight(max);
+
 
 
     let canvas = document.querySelector("canvas");
     if(!canvas) {
         canvas=document.createElement('canvas');
-        canvas.width=width+10;
-        canvas.height=height+10;
+        canvas.width=width+40;
+        canvas.height=height+40;
         document.body.insertBefore(canvas,wrapper2);
     }
-    let ctx = canvas.getContext('2d');
+    var ctx = canvas.getContext('2d');
+
+ 
+
     ctx.clearRect(0,0,canvas.width,canvas.height);
+
+
     ctx.save();
-    ctx.translate(10,height);
+    ctx.translate(40,height+20);
+    ctx.font="14px serif";
+    ctx.save();
+    ctx.textBaseline="middle";
+    ctx.textAlign="end";
+    let axisHeight=getYHeight(max);
+    ctx.restore();
     ctx.scale(1,-1);
+
+
     ctx.beginPath();
     ctx.moveTo(0,0);
     ctx.lineTo(width,0);
     ctx.moveTo(0,0);
     ctx.lineTo(0,height);
     ctx.stroke();
+    ctx.save();
+    ctx.scale(1,-1);
+    for(let i=0;i<12;i++) {
+        ctx.beginPath();
+
+        ctx.textAlign="center";
+        ctx.fillText(i+1+'月',i*span,15);
+    }
+    ctx.restore();
 
     if(multi) {
         for(let i=0;i<data.length;i++) {
@@ -41,7 +63,7 @@ function drawLine(data,multi) {
         ctx.strokeStyle=selectedColors[0];
         drawOneLine(data);
     }
-    ctx.restore();
+        ctx.restore();
 
     function drawOneLine(data) {
         ctx.beginPath();
@@ -80,6 +102,26 @@ function drawLine(data,multi) {
                     max=data[i];
                 }
             }
+        }
+    }
+
+    function getYHeight(max) {
+        let len = max.toString().length;
+        unit = Math.ceil(Math.pow(10,len-1)/2);
+        let yHeight = (Math.floor(max/unit)+1)*unit;
+        drawYScale(unit,yHeight);
+        return yHeight;
+        
+    }
+
+    function drawYScale(unit,yHeight) {
+        for(let i=0,ySpacing=height/(yHeight/unit);i<=yHeight/unit;i++) {
+            ctx.beginPath();
+            ctx.fillText(''+unit*i,-10,-ySpacing*i);
+            ctx.moveTo(0,-ySpacing*i);
+            ctx.lineTo(width,-ySpacing*i);
+            ctx.strokeStyle="rgba(0,0,0,.2)";
+            ctx.stroke();
         }
     }
 }
