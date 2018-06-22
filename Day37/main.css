@@ -1,0 +1,64 @@
+table {
+    border:2px solid black;
+    border-collapse:collapse;
+}
+td,th {
+    border:1px solid black;
+    text-align:center;
+}
+
+td {
+    height:20px;
+}
+
+thead th {
+    padding:10px;
+}
+
+tbody:hover td[rowspan],tr:hover td{
+    background: rgba(0,0,0,0.2);
+}
+
+#color-bar div {
+    display: inline-block;
+}
+#color-bar .inner {
+    width:20px;
+    height:15px;
+    border-radius: 3px;
+    margin-right:10px;
+}
+
+
+.data {
+    position: relative;
+}
+
+.data img {
+    float:right;
+}
+
+.data input[type="text"] {
+    width:100px;
+    box-sizing:border-box;
+    padding-right:20px;
+}
+
+.data div {
+    position: absolute;
+    top:0;
+    right:0;
+    font-size:8px;
+}
+
+.data div span {
+    display:block;
+    background:#222;
+    color:white;
+}
+
+.data div span:hover {
+    background: #666;
+
+    cursor: pointer;
+}

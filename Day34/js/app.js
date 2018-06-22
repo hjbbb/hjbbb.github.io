@@ -44,6 +44,9 @@ window.onload = function(){
 
     table1 = wrapper2.querySelector('table');
     EventUtil.addHandler(table1,"mouseover",function(e) {
+        console.log(this);
+        console.log(e.target);
+        console.log(e.currentTarget);
         e=EventUtil.getEvent(e);
         let target = EventUtil.getTarget(e);
         if(target.tagName==="TD") {
