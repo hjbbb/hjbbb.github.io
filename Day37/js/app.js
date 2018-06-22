@@ -216,6 +216,6 @@ window.onload = function(){
         }
         editing=false;
         EventUtil.addHandler(table1,'mouseover',addPencil);
-        // return true;
+        return true;
     }
 }
