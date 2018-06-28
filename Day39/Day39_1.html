@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+</head>
+<body>
+    <button id="a">A</button>
+    <button id="b">B</button>
+    <button id="c">C</button>
+
+    <button id="d">D</button>
+    <button id="e">E</button>
+    <button id="f">F</button>
+
+    <div id="contABC"></div>
+    <div id="contDEF"></div>
+
+    <script>
+        var EventUtil = {
+            addHandler:function(ele,type,handler) {
+                if(ele.addEventListener) {
+                    ele.addEventListener(type,handler);
+                }
+                else if(ele.attachEvent) {
+                    ele.attachEvent('on'+type,handler);
+                }
+                else {
+                    ele['on'+type]=handler;
+                }
+            },
+            getEvent:function(event) {
+                return event?event:window.event;
+            },
+            getTarget:function(event) {
+                return event.target?event.target:event.srcElement;
+            }
+        }
+        function getHash() {
+            return window.location.hash.substr(1);
+        }
+
+        function render() {
+            var hash = getHash();
+            if(hash) {
+                var state1 = hash.match(/[abc]/);
+                var state2 = hash.match(/[def]/);
+                if(state1) {
+                    var content = document.getElementById(state1[0]).innerText;
+                    var contABC = document.getElementById('contABC');
+                    contABC.innerHTML=content;
+                }
+                if(state2) {
+                    content = document.getElementById(state2[0]).innerText;
+                    var contDEF = document.getElementById('contDEF');
+                    contDEF.innerHTML=content;
+                }
+            }
+        }
+
+        var btns = document.querySelectorAll('button');
+        for(var i=0,len=btns.length;i<len;i++) {
+            EventUtil.addHandler(btns[i],'click',function(e) {
+                e=EventUtil.getEvent(e);
+                var target = EventUtil.getTarget(e);
+                var oldHash = getHash();;
+                if(target.id==='a'||target.id==='b'||target.id==='c') {
+                    if(oldHash.search(/[abc]/)!==-1) {
+                        window.location.hash=oldHash.replace(/[abc]/,target.id);
+                    }
+                    else {
+                        window.location.hash+=target.id;
+                    }
+                }
+                else {
+                    if(oldHash.search(/[def]/)!==-1) {
+                        window.location.hash=oldHash.replace(/[def]/,target.id);
+                    }
+                    else {
+                        window.location.hash+=target.id;
+                    }
+                }
+            })
+        };
+        window.onhashchange = render;
+        render();
+    </script>
+</body>
+</html>

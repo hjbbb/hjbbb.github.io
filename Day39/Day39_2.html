@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>history.state</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+</head>
+<body>
+    <button id="a">你躲进天空和云朵,发现心里已没有湖泊,你向苍白索要鲜艳,你让梅花落满山坡,你向太阳索要光,向大雨索要晴朗,
+        你向明天索要方向,向生活索要奢望,你向飞鸟索要翅膀,转过身与风对抗。
+    </button>
+    <button id="b">B</button>
+    <button id="c">C</button>
+
+    <button id="d">D</button>
+    <button id="e">E</button>
+    <button id="f">F</button>
+
+    <div id="contABC"></div>
+    <div id="contDEF"></div>
+    <script>
+        var btns=document.querySelectorAll("button");
+        for(var i=0, len=btns.length; i<len; i++) {
+            btns[i].addEventListener('click',function(e) {
+                var target=e.target;
+                var hash=location.hash.slice(1);
+                if('abc'.indexOf(target.id)!==-1) {
+                    hash=hash.replace(/[abc]/,target.id);
+                }
+                else {
+                    hash=hash.replace(/[def]/,target.id);
+                }
+                history.pushState(null,'','#'+hash);
+                render();
+            })
+        }
+
+        function checkhash() {
+            var hash=location.href.split('#')[1];
+            
+            if(hash==undefined||!/^[abc][def]$|^[def][abc]$/.test(hash)) {
+                history.replaceState(null,'','#'+'ad');
+                render();
+            }
+            render();
+        }
+        function render(target){
+            var hash=location.hash.slice(1);
+            var abc=hash.match(/[abc]/)[0];
+            var def=hash.match(/[def]/)[0];
+            var contABC =  document.getElementById('contABC');
+            var contentABC = document.getElementById(abc).innerText;
+            contABC.innerHTML=contentABC;
+            var contDEF = document.getElementById('contDEF');
+            var contentDEF = document.getElementById(def).innerText;
+            contDEF.innerHTML=contentDEF;
+        }
+        
+        if(history.pushState) {
+            window.onpopstate=function(e) {
+                checkhash();
+
+            }
+        }
+
+        checkhash();
+    </script>
+</body>
