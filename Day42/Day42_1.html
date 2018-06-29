@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Day42</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+</head>
+<body>
+    <script>
+        class Restaurant {
+            constructor(cash,seats,staff) {
+                if(arguments.length===1 && arguments[0] instanceof Object) {
+                    cash = arguments[0].cash;
+                    seats = arguments[0].seats;
+                    staff = arguments[0].staff;
+                }
+                if(isNaN(cash)||cash==='') {
+                    throw new Error('cash is no a number');
+                }
+                this.cash = Number(cash);
+                this.seats = Number(seats);
+                this.staff=staff||[];
+            }
+            hire(employee) {
+                if(this.staff.includes(employee)) {
+                    throw new Error('This employee has been hired');
+                }
+                alert(employee.name + ' has been hired.');
+                this.staff.push(employee);
+            }
+            fire(employee) {
+                var ind = this.staff.indexOf(employee);
+                if(ind===-1) {
+                    throw new Error('No this employee in the staff.')
+                }
+                alert('No.' +employee.id + ',' + employee.name + ' has been fired.');
+                this.staff.splice(this.staff.indexOf(employee));
+            }
+        }
+
+        class Employee {
+            constructor(id,name,salary) {
+                this.id = id;
+                this.name = name;
+                this.salary = salary;
+            }
+            work() {
+                alert(this.name + ' finish a work.');
+            }
+        }
+
+        class Waiter extends Employee {
+            constructor(id,name,salary) {
+                super(id,name,salary);
+            }
+            work(args) {
+                if(args instanceof Array) {
+                    var menu = 'Guests order ' + formatMenu(args);
+                    alert(menu);
+                }
+                else {
+                    alert('No.' + this.id + ' waiter, ' + this.name + ': these are what you order: ' + args +', help yourselves.');
+                }                
+            }
+        }
+
+        class Cook extends Employee {
+            constructor(id,name,salary) {
+                super(id,name,salary);
+            }
+            work(dish) {
+                if(dish==undefined) {
+                    throw new Error('need a dish name');
+                }
+                alert('No.' + this.id + ' cook, ' +this.name + ': cooks a ' + dish +'.');
+            }
+        }
+
+        class Guest {
+            order(menu) {
+                alert('I would like to order '+formatMenu(menu));
+            }
+            eat(dish) {
+                alert('I\'m eating ' + dish);
+            }
+        }
+
+        class Dish {
+            constructor(name,cost,price) {
+                this.name = name;
+                this.cost = cost;
+                this.price = price;
+            }
+            toString() {
+                return this.name;
+            }
+        }
+
+        function formatMenu(menu) {
+            if(!menu instanceof Array) return menu;
+            if(menu.length === 1) {
+                return menu[0] + '.';
+            }
+            else if(menu.length === 2) {
+                return menu[0] + ' and ' + menu[1] + '.';
+            }
+            else {
+                var res='';
+                for(var i=0,len=menu.length-1;i<len;i++) {
+                    res += menu[i] + ', ';
+                }
+                res += 'and ' + menu[len] + '.';
+                return res;
+            }
+        }
+
+        var ifeRestaurant = new Restaurant({
+            cash: 1000000,
+            seats: 20,
+            staff: []
+        });
+
+        var newCook = new Cook(1, "Tony", 10000);
+        ifeRestaurant.hire(newCook);
+        
+        newCook.work('noodle');
+
+        console.log(ifeRestaurant.staff);
+
+        ifeRestaurant.fire(newCook);
+        console.log(ifeRestaurant.staff);
+
+        var newEmployee = new Employee(2, 'Jack', 10000);
+        newEmployee.work();
+
+        var newWaiter = new Waiter(3, 'Tom', 10000);
+        newWaiter.work(['noodle','rice','meat']);
+        newWaiter.work('noodle');
+
+        var newDish = new Dish('noodle',6,8);
+        newWaiter.work(newDish);
+        
+    </script>
+</body>
+</html>

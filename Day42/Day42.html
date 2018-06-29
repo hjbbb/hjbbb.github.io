@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <title>Day42</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+    </head>
+    <body>
+        <script>
+            function Restaurant(cash,seats,staff) {
+                if(arguments.length===1&&arguments[0] instanceof Object) {
+                    cash = arguments[0].cash;
+                    seats = arguments[0].seats;
+                    staff = arguments[0].staff;
+                }
+                this.cash = cash;
+                this.seats = seats;
+                this.staff = staff instanceof Array?staff:[];
+            }
+
+            Restaurant.prototype.hire = function(employee) {
+                alert(employee.name + ' has been hired.');
+                this.staff.push(employee)
+            }
+
+            Restaurant.prototype.fire = function(employee) {
+                alert('No.' +employee.id + ':' + employee.name + ' has been fired.');
+                this.staff.splice(this.staff.indexOf(employee));
+            }
+
+            function Employee(id,name,salary) {
+                this.id = id;
+                this.name = name;
+                this.salary = salary;
+            }
+
+            Employee.prototype.work = function() {
+                alert(this.name + ' finish a work.');
+            }
+
+            function Waiter(id,name,salary) {
+                Employee.call(this,id,name,salary);
+                Waiter.prototype = Object.create(Employee.prototype);
+            }
+
+            Waiter.prototype.work = function(args) {
+                if(args instanceof Array) {
+                    var menu = 'Guests order ' + formatMenu(args);
+                    alert(menu);
+                }
+                else {
+                    alert('No.' + this.id + ' waiter: ' + this.name + ',these are what you order,help yourselves.');
+                }
+            }
+
+            function Cook(id,name,salary) {
+                Employee.call(this,id,name,salary);
+                Cook.prototype = Object.create(Employee.prototype);
+            }
+
+            Cook.prototype.work = function(dish) {
+                if(dish==undefined) {
+                    throw new Error('need a dish name');
+                }
+                alert('No.' + this.id + ' cook: ' +this.name + ' cooks a ' + dish +'.');
+            }
+
+            function Guest() {
+
+            }
+
+            Guest.prototype.order = function(menu) {
+                alert('I would like to order '+formatMenu(menu));
+            }
+
+            Guest.prototype.eat = function(dish) {
+                alert('I\'m eating ' + dish);
+            }
+
+            function Dish(name,cost,price) {
+                this.name=name;
+                this.cost=cost;
+                this.price = price;
+            }
+
+            Dish.prototype.toString = function() {
+                return this.name;
+            }
+
+            function formatMenu(menu) {
+                if(!menu instanceof Array) return menu;
+                if(menu.length === 1) {
+                    return menu[0] + '.';
+                }
+                else if(menu.length === 2) {
+                    return menu[0] + ' and ' + menu[1] + '.';
+                }
+                else {
+                    var res='';
+                    for(var i=0,len=menu.length-1;i<len;i++) {
+                        res += menu[i] + ', ';
+                    }
+                    res += 'and ' + menu[len] + '.';
+                    return res;
+                }
+            }
+        </script>
+    </body>
+</html>
