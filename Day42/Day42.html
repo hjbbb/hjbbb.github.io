@@ -25,8 +25,14 @@
             }
 
             Restaurant.prototype.fire = function(employee) {
-                alert('No.' +employee.id + ':' + employee.name + ' has been fired.');
-                this.staff.splice(this.staff.indexOf(employee));
+                var arr = [];
+                for(let i in this.staff) {
+                    if(this.staff[i]!=employee) {
+                        arr.push(this.staff[i]);
+                    }
+                }
+                this.staff = arr;
+                alert('No.' +employee.id + ',' + employee.name + ' has been fired.');
             }
 
             function Employee(id,name,salary) {
@@ -40,9 +46,11 @@
             }
 
             function Waiter(id,name,salary) {
-                Employee.call(this,id,name,salary);
-                Waiter.prototype = Object.create(Employee.prototype);
+                Employee.call(this,id,name,salary);                
             }
+
+            Waiter.prototype = Object.create(Employee.prototype);
+            Waiter.prototype.constructor = Waiter;
 
             Waiter.prototype.work = function(args) {
                 if(args instanceof Array) {
@@ -56,8 +64,11 @@
 
             function Cook(id,name,salary) {
                 Employee.call(this,id,name,salary);
-                Cook.prototype = Object.create(Employee.prototype);
+                
             }
+
+            Cook.prototype = Object.create(Employee.prototype);
+            Cook.prototype.constructor = Cook;
 
             Cook.prototype.work = function(dish) {
                 if(dish==undefined) {

@@ -30,12 +30,14 @@
                 this.staff.push(employee);
             }
             fire(employee) {
-                var ind = this.staff.indexOf(employee);
-                if(ind===-1) {
-                    throw new Error('No this employee in the staff.')
+                var arr = [];
+                for(let i in this.staff) {
+                    if(this.staff[i]!=employee) {
+                        arr.push(this.staff[i]);
+                    }
                 }
+                this.staff = arr;
                 alert('No.' +employee.id + ',' + employee.name + ' has been fired.');
-                this.staff.splice(this.staff.indexOf(employee));
             }
         }
 
