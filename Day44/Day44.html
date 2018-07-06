@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Day44</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <script>
+        var guests = [],
+            menu = [],
+            currGuest = null,
+            selDish = null,
+            id = 1;
+
+
+
+        guests.push(new Guest(),new Guest());
+        menu.push(new Dish('noodle',8),new Dish('dumpling',10),
+                    new Dish('rice',1));
+        
+        
+        function Employee(name, salary,position) {
+            this.id = id++;
+            this.name = name;
+            this.salary = salary;
+            this.position = position;
+        }
+
+        Employee.prototype.finish = function() {
+            console.log(this.position + ' ' + this.name + ' finish a work.');
+        }
+
+        function Cook(name, salary, position) {
+            Employee.call(this, name, salary, position);
+        }
+        Cook.prototype = Object.create(Employee.prototype);
+        Cook.prototype.constructor = Cook;
+
+        Cook.prototype.cook = function() {
+            console.log('做好了，可以上菜了。服务员！！');
+            waiter.serve();
+        }
+
+        function Waiter(name, salary, position) {
+            Employee.call(this, name, salary, position);
+        }
+        Waiter.prototype = Object.create(Employee.prototype);
+        Waiter.prototype.constructor = Waiter;
+        
+        Waiter.prototype.order = function() {
+            while(currGuest = guests.shift()) {
+                console.log('欢迎光临，您好，这是菜单，您看一下要点些什么：');
+                showMenu();
+                selDish = currGuest.order();
+                this.inform();
+            }
+        }
+        Waiter.prototype.serve = function(h) {
+            console.log('这是您点的' + selDish + ', 请慢用。');
+            currGuest.eat();
+        }
+        
+        Waiter.prototype.inform = function() {
+            console.log('厨师，顾客点了' + selDish);
+            cook.cook();
+        }
+
+        function Guest() {
+
+        }
+        Guest.prototype.order =  function() {
+            var ind = prompt("请输入菜品编号：");
+            return menu[ind-1];
+        }
+        Guest.prototype.eat = function() {
+            console.log('顾客正在吃饭中……');
+            console.log('顾客吃完了\n\n')
+        }
+
+        function Dish(name, price) {
+            this.name = name;
+            this.price = price;
+        }
+        Dish.prototype.toString = function() {
+            return this.name;
+        }
+
+        function Singleton(func) {
+            var instance = null;
+            var args = Array.prototype.slice.call(arguments,1);
+            function F(args) {
+                return func.apply(this, args);
+            }
+            F.prototype = Object.create(func.prototype);
+            
+            return function() {
+                if(instance == null) {
+                    instance = new F(args);
+                }
+                return instance;
+            };
+        }
+
+        function showMenu() {
+            menu.forEach(function(ele,ind) {
+                console.log(ind+1 + ': ' + ele.name + '     ' + ele.price);
+            });
+        }
+
+
+        var aCook = Singleton(Cook,'Tony',10000,'cook');
+        var aWaiter = Singleton(Waiter,'Jack',8000,'waiter');
+        var cook=aCook();
+        var waiter = aWaiter();
+        waiter.order();
+    </script>
+</body>
+</html>
